@@ -20,7 +20,52 @@ classifier_grammar = build_grammar(open(filename, 'r').read())
 MAX_DEPTH = 3
 
 class Classifier:
+    """
+    Automatic pipeline optimizer for scikit-learn classifiers.
 
+    Parameters
+    ==========
+
+    nb_iter : int
+        number of iterations of pipeline optimization.
+        each iteration, one full pipeline is evaluated.
+
+    score : function (default is `accuracy`)
+        metric to use for evaluation. see `sklearn.metrics`.
+        WARNING : the higher the score, the better.
+
+    walker : Walker, the grammar walker to use. Walkers are used to generate pipelines
+             from the grammar. the default Walker is RandomWalker and it chooses randomly
+             uniformly a pipeline from the grammar defined in `classifier_grammar`.
+
+    valid_ratio : float
+        ratio of validation set to use for evaluating the pipelines.
+        If valid_ratio is 0, validation is done using the full training set (`X` and `y` in fit),
+        except if `X_valid` and `y_valid` are provided in `fit`.
+
+    random_state : int
+
+    Attributes
+    ==========
+
+    estimators_ : list of scikit-learn pipelines
+        list of all estimators evaluated in the optimization
+
+    scores_ : list of float
+        list of estimators scores
+
+    codes_ : list of str
+        list of pipelines codes
+
+    best_score_ : float
+        best score found
+
+    best_estimator_ : scikit-learn pipeline
+        best estimator found
+
+    best_estimator_code_ : str
+        best estimator code
+    """
     def __init__(self, nb_iter=1, score=accuracy_score, 
                  walker=RandomWalker(classifier_grammar, max_depth=MAX_DEPTH), 
                  valid_ratio=0, random_state=42, verbose=0):
