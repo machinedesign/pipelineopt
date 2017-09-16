@@ -11,7 +11,7 @@ can be initially pre-trained and use. See https://github.com/machinedesign/gramm
 # Example
 
 
-'''python
+```python
 from pipelineopt.estimator import Classifier
 
 from sklearn.datasets import load_digits
@@ -25,4 +25,4 @@ clf.fit(X, y)
 print('Best code :')
 print(clf.best_estimator_code_)
 print('Best score : {}'.format(clf.best_score_))
-``
+```
