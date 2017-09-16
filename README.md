@@ -1,4 +1,4 @@
-# pipelineopt
+# Pipelineopt
 
 Pipelineopt is a sckit-learn pipeline (http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) 
 optimizer. It provides a scikit-learn like `Classifier` class which implements `fit`, `predict`, and `predict_proba`. 
@@ -6,7 +6,8 @@ Within `fit`, several pipelines are tried and the best pipeline according to the
 The way pipelines are generated is using a context-free grammar defined `classifier_grammar`. Different ways
 of generating from the grammars are called `Walkers`. The default `Walker` used is `RandomWalker` which selects
 uniformly from the pipelines of the grammar. Trained/Trainable `Walkers` can also be used. For instance, an `RnnWalker`
-can be initially pre-trained and use. See https://github.com/machinedesign/grammaropt for more details about `RnnWalker`.
+can be initially pre-trained (e.g, it could be trained to generate good pipelines with high probability) and 
+used in Pipelineopt. See https://github.com/machinedesign/grammaropt for more details about `RnnWalker`.
 
 # Example
 
