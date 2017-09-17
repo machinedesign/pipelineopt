@@ -3,6 +3,7 @@ import os
 import numpy as np
 
 from sklearn.metrics import accuracy_score
+from sklearn.base import BaseEstimator
 
 import sklearn
 from sklearn import *
@@ -19,7 +20,7 @@ classifier_grammar = build_grammar(open(filename, 'r').read())
 
 MAX_DEPTH = 3
 
-class Classifier:
+class Classifier(BaseEstimator):
     """
     Automatic pipeline optimizer for scikit-learn classifiers.
 
@@ -80,6 +81,7 @@ class Classifier:
         self.best_score_ = None
         self.best_estimator_ = None
         self.best_estimator_code_ = None
+        self.classes_ = None
         self.verbose = verbose
 
     def fit(self, X, y, X_valid=None, y_valid=None):
@@ -131,6 +133,7 @@ class Classifier:
             if self.verbose:
                 print('Best score : {}'.format(self.best_score_))
                 print(self.best_estimator_code_)
+            self.classes_ = self.best_estimator_.classes_
         return self
     
     def predict(self, X):
